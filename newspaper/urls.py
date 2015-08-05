@@ -16,6 +16,8 @@ urlpatterns = patterns('',
     url(r'^thread/new/$',        'news.views.new_thread', name='new_thread'),
     url(r'^thread/submit/$',        'news.views.submit_thread', name='submit_thread'),
     url(r'^thread/(?P<thread_id>\d+)/$', 'news.views.read_thread', name='read_thread'),
+    # upvote
+    # devote
     # edit profile
     # submit comment
     # about

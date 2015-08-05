@@ -1,9 +1,17 @@
 {% include 'header.html' %}
 <h1>Newest List</h1>
 
-<table>
+<table class="table">
     {% for thread in threads %}
-    <tr><td><a href="{% url 'read_thread' thread.id %}">{{ thread.title }}</a></td><td>{{ thread.pub_date }}</td></tr>
+    <tr>
+        <td><div>
+            <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+            <br>
+            <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+        </div></td>
+        <td><a href="{% url 'read_thread' thread.id %}">{{ thread.title }}</a></td>
+        <td>{{ thread.pub_date }}</td>
+    </tr>
     {% endfor %}
 </table>
 
