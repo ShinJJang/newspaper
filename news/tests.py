@@ -1,5 +1,5 @@
 from django.test import TestCase
-from news.parser import parse_title
+from news.util.parser import parse_title
 
 
 class ParseTest(TestCase):

@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from news.models import Thread, Vote
-from news.parser import parse_title
+from news.util.parser import parse_title
 
 
 def index(request):
