@@ -1,8 +1,27 @@
 {% include 'header.html' %}
+<table>
+    <tr><td>
+            <div>
+                <a href="/thread/{{ thread.id }}/vote?is_up=1" class="vote">
+                    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+                <br>
+                <a href="/thread/{{ thread.id }}/vote?is_up=0" class="vote">
+                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+            </div>
+        </td>
 
-<h2><a href="{{ thread.url }}">{{ thread.title }}</a></h2>
-<span>{{ thread.pub_date }}</span>
+        <td>
+            <span id="vote_count_{{ thread.id }}">{{ thread.get_vote_count }}</span>
+        </td>
 
-<div>{{ thread.content }}</div>
+        <td>
+            <h2><a href="{{ thread.url }}">{{ thread.title }}</a></h2>
+            <span>{{ thread.pub_date }}</span>
+        </td>
+    </tr>
 
+    <tr><td>
+        <div>{{ thread.content }}</div>
+    </td></tr>
+</table>
 {% include 'footer.html' %}
