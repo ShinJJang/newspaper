@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from news.models import Thread
 from django.contrib.auth.decorators import login_required
+from news.parser import parse_title
 
 
 def index(request):
@@ -89,17 +90,17 @@ def submit_thread(request):
         url = request.POST["url"].strip()
         content = request.POST["content"].strip()
 
-        if not title and url:
-            pass
-            #title = urllib2.get()
-        elif title:
-            thread = Thread(title=title, url=url, content=content, writer_id=request.user.id)
-            thread.save()
-            return redirect("newest_list")
+        if not title and not url:
+            request.session["error"] = "입력한 정보가 올바르지 않습니다"
+            return redirect("new_thread")
+
+        elif not title and url:
+            title = parse_title(url)
+
+        thread = Thread(title=title, url=url, content=content, writer_id=request.user.id)
+        thread.save()
+        return redirect("newest_list")
 
     except KeyError:
         request.session["error"] = "올바른 요청이 아닙니다"
-        return redirect("signup")
-    else:
-        request.session["error"] = "입력한 정보가 올바르지 않습니다"
         return redirect("new_thread")
