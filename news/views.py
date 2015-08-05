@@ -118,8 +118,11 @@ def vote(request, thread_id):
             except Vote.DoesNotExist:
                 thread.vote_set.create(user=request.user, is_up=is_up)
             else:
-                vote.is_up = is_up
-                vote.save()
+                if vote.is_up == is_up:
+                    vote.delete()
+                else:
+                    vote.is_up = is_up
+                    vote.save()
 
             json_data = '{"count":"%s"}' % thread.get_vote_count()
             return HttpResponse(json_data, content_type="application/json; charset=utf-8")
