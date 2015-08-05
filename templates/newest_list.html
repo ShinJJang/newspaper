@@ -3,7 +3,7 @@
 
 <table>
     {% for thread in threads %}
-    <tr><td><a href="#">{{ thread.title }}</a></td><td>{{ thread.pub_date }}</td></tr>
+    <tr><td><a href="{% url 'read_thread' thread.id %}">{{ thread.title }}</a></td><td>{{ thread.pub_date }}</td></tr>
     {% endfor %}
 </table>
 

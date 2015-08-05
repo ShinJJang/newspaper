@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.db import IntegrityError
@@ -57,3 +57,9 @@ def newest_list(request):
         "threads": Thread.objects.order_by('-pub_date')[:20]
     }
     return render(request, 'newest_list.html', context)
+
+def read_thread(request, thread_id):
+    context = {
+        "thread": get_object_or_404(Thread, id=thread_id)
+    }
+    return render(request, 'thread.html', context)
