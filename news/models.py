@@ -11,3 +11,16 @@ class Thread(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Vote(models.Model):
+    thread = models.ForeignKey(Thread)
+    user = models.ForeignKey(User)
+    is_up = models.BooleanField("추천 또는 비추천")
+
+    def __str__(self):
+        result = self.user.username + " vote to thread id " + str(self.thread.id)
+        if self.is_up:
+            return result + " with +1"
+        else:
+            return result + " with -1"
