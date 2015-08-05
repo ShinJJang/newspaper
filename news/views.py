@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from news.models import Thread
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, HttpResponseBadRequest
+from news.models import Thread, Vote
 from news.parser import parse_title
 
 
@@ -104,3 +105,18 @@ def submit_thread(request):
     except KeyError:
         request.session["error"] = "올바른 요청이 아닙니다"
         return redirect("new_thread")
+
+
+@login_required
+def vote(request, thread_id):
+    try:
+        is_up = int(request.GET["is_up"].strip())
+        if is_up == 1 or is_up == 0:
+            thread = get_object_or_404(Thread, id=thread_id)
+            thread.vote_set.create(user=request.user, is_up=is_up)
+            json_data = '{"count":"%s"}' % thread.get_vote_count()
+            return HttpResponse(json_data, content_type="application/json; charset=utf-8")
+    except KeyError:
+        return HttpResponseBadRequest()
+    else:
+        return HttpResponseBadRequest()
