@@ -12,6 +12,13 @@ class Thread(models.Model):
     def __str__(self):
         return self.title
 
+    def get_vote_count(self):
+        vote_count = self.vote_set.filter(is_up=True).count() - self.vote_set.filter(is_up=False).count()
+        if vote_count >= 0:
+            return "+ " + str(vote_count)
+        else:
+            return "- " + str(abs(vote_count))
+
 
 class Vote(models.Model):
     thread = models.ForeignKey(Thread)

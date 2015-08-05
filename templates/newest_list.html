@@ -5,10 +5,13 @@
     {% for thread in threads %}
     <tr>
         <td><div>
-            <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+            <a href="#"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
             <br>
-            <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+            <a href="#"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
         </div></td>
+        <td>
+            {{ thread.get_vote_count }}
+        </td>
         <td><a href="{% url 'read_thread' thread.id %}">{{ thread.title }}</a></td>
         <td>{{ thread.pub_date }}</td>
     </tr>
