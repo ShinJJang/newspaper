@@ -1,7 +1,13 @@
 {% include 'header.html' %}
 
 <h1>News Header!</h1>
-<a href="{% url 'login' %}">Login</a>
-<a href="{% url 'signup' %}">Signup</a>
+
+{% if user.is_authenticated %}
+    <span>{{ user.username }}</span>
+    <a href="{% url 'user_logout' %}">Logout</a>
+{% else %}
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'signup' %}">Signup</a>
+{% endif %}
 
 {% include 'footer.html' %}

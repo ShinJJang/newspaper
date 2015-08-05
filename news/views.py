@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 
@@ -43,3 +44,8 @@ def signup_submit(request):
     else:
         request.session["error"] = "입력한 정보가 올바르지 않습니다"
         return redirect("signup")
+
+
+def user_logout(request):
+    logout(request)
+    return redirect("index")

@@ -1,7 +1,7 @@
 {% include 'header.html' %}
 <h1>Login</h1>
 <div>
-    <form method="post" action="{% url 'login' %}">
+    <form method="post" action="{% url 'django.contrib.auth.views.login' %}" role="login">
         {% csrf_token %}
         <label for="username">username</label>
         <input type="text" id="username" name="username">
