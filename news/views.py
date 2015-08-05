@@ -113,10 +113,19 @@ def vote(request, thread_id):
         is_up = int(request.GET["is_up"].strip())
         if is_up == 1 or is_up == 0:
             thread = get_object_or_404(Thread, id=thread_id)
-            thread.vote_set.create(user=request.user, is_up=is_up)
+            try:
+                vote = thread.vote_set.get(user=request.user)
+            except Vote.DoesNotExist:
+                thread.vote_set.create(user=request.user, is_up=is_up)
+            else:
+                vote.is_up = is_up
+                vote.save()
+
             json_data = '{"count":"%s"}' % thread.get_vote_count()
             return HttpResponse(json_data, content_type="application/json; charset=utf-8")
     except KeyError:
-        return HttpResponseBadRequest()
+        json_data = '{"count":"%s"}' % "올바른 요청이 아닙니다"
+        return HttpResponseBadRequest(json_data, content_type="application/json; charset=utf-8")
     else:
-        return HttpResponseBadRequest()
+        json_data = '{"count":"%s"}' % "올바른 요청이 아닙니다"
+        return HttpResponseBadRequest(json_data, content_type="application/json; charset=utf-8")
