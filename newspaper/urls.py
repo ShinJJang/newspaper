@@ -10,7 +10,7 @@ urlpatterns = patterns('',
     url(r'^$',              'news.views.index', name='index'),
     url(r'^login/$',        'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
     url(r'^signup/$',       'news.views.signup', name='signup'),
-    url(r'^signup/submit$',       'news.views.signup_submit', name='signup_submit'),
+    url(r'^signup/submit/$',       'news.views.signup_submit', name='signup_submit'),
     # logout
     # newest
     # submit thread

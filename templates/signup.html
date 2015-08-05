@@ -1,5 +1,6 @@
 {% include 'header.html' %}
 <h1>Create Account</h1>
+{% include 'error.html' %}
 <div>
     <form method="post" action="{% url 'signup_submit' %}">
         {% csrf_token %}
