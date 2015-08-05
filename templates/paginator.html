@@ -1,0 +1,29 @@
+<nav class="text-center">
+    <ul class="pagination">
+        {% if threads.has_previous %}
+            <li>
+                <a href="?page={{ threads.previous_page_number }}">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+        {% endif %}
+        {% for index in pages %}
+                {% if index == threads.number %}
+            <li class="active">
+                {% else %}
+            <li>
+                {% endif %}
+                <a href="?page={{ index }}">{{ index }}</a>
+            </li>
+        {% endfor %}
+        {% if threads.has_next %}
+                <li>
+                    <a href="?page={{ threads.next_page_number }}">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+        {% endif %}
+    </ul>
+</nav>

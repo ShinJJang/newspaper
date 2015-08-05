@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from news.models import Thread, Vote
 from news.parser import parse_title
 
@@ -56,8 +57,23 @@ def user_logout(request):
 
 
 def newest_list(request):
+    try:
+        page = request.GET["page"].strip()
+    except KeyError:
+        page = 1
+    thread_list = Thread.objects.order_by('-pub_date')
+    paginator = Paginator(thread_list, 2)
+
+    try:
+        threads = paginator.page(page)
+    except PageNotAnInteger:
+        threads = paginator.page(1)
+    except EmptyPage:
+        threads = paginator.page(paginator.num_pages)
+
     context = {
-        "threads": Thread.objects.order_by('-pub_date')[:20]
+        "threads": threads,
+        "pages": paginator.page_range
     }
     return render(request, 'newest_list.html', context)
 
