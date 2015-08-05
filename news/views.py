@@ -5,12 +5,45 @@ from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Count
 from news.models import Thread, Vote
 from news.util.parser import parse_title
+from news.util.common import SortMethods
 
 
 def index(request):
-    return render(request, "index.html")
+    try:
+        sort = request.GET["sort"].strip()
+        sort_method = SortMethods[sort]
+        page = request.GET["page"].strip()
+    except KeyError:
+        sort_method = SortMethods.score
+        page = 1
+
+    if sort_method == SortMethods.date:
+        thread_list = Thread.objects.order_by("-pub_date")
+    #elif sort_method == SortMethods.comment:
+    #    thread_list = Thread.objects.annotate(num_comments=Count('comments')).order_by("num_comments")
+    elif sort_method == SortMethods.title:
+        thread_list = Thread.objects.order_by("title")
+    else:
+        thread_list = Thread.objects.all()
+        thread_list = sorted(thread_list, key=lambda x: x.get_score(), reverse=True)
+
+    paginator = Paginator(thread_list, 30)
+
+    try:
+        threads = paginator.page(page)
+    except PageNotAnInteger:
+        threads = paginator.page(1)
+    except EmptyPage:
+        threads = paginator.page(paginator.num_pages)
+
+    context = {
+        "threads": threads,
+        "pages": paginator.page_range
+    }
+    return render(request, "index.html", context)
 
 
 def signup(request):
@@ -62,7 +95,7 @@ def newest_list(request):
     except KeyError:
         page = 1
     thread_list = Thread.objects.order_by('-pub_date')
-    paginator = Paginator(thread_list, 2)
+    paginator = Paginator(thread_list, 30)
 
     try:
         threads = paginator.page(page)

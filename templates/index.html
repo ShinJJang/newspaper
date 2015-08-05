@@ -1,5 +1,33 @@
 {% include 'header.html' %}
 
-<h1>News Header!</h1>
+<h1>News Main!</h1>
+<a href="?sort=score&page=1">Score</a>
+<a href="?sort=comment&page=1">Comment</a>
+<a href="?sort=date&page=1">Date</a>
+<a href="?sort=title&page=1">Title</a>
+
+
+<table class="table">
+    {% for thread in threads %}
+    <tr>
+        <td><div>
+            <a href="/thread/{{ thread.id }}/vote?is_up=1" class="vote">
+                <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+            <br>
+            <a href="/thread/{{ thread.id }}/vote?is_up=0" class="vote">
+                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+        </div></td>
+        <td>
+            <span id="vote_count_{{ thread.id }}">{{ thread.get_vote_count }}</span>
+        </td>
+        <td><a href="{% url 'read_thread' thread.id %}">{{ thread.title }}</a>
+            <br>
+            <small>Score {{ thread.get_score }}</small></td>
+        <td>{{ thread.pub_date }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% include 'paginator.html' %}
 
 {% include 'footer.html' %}

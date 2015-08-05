@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from news.util.ranking import hot
 
 
 class Thread(models.Model):
@@ -18,6 +19,11 @@ class Thread(models.Model):
             return "+ " + str(vote_count)
         else:
             return "- " + str(abs(vote_count))
+
+    def get_score(self):
+        upvote_count = self.vote_set.filter(is_up=True).count()
+        devote_count = self.vote_set.filter(is_up=False).count()
+        return hot(upvote_count, devote_count, self.pub_date.replace(tzinfo=None))
 
 
 class Vote(models.Model):
