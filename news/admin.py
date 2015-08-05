@@ -1,3 +1,5 @@
 from django.contrib import admin
+from news.models import Thread
 
-# Register your models here.
+admin.site.register(Thread)
+

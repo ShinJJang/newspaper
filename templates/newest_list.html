@@ -1,0 +1,10 @@
+{% include 'header.html' %}
+<h1>Newest List</h1>
+
+<table>
+    {% for thread in threads %}
+    <tr><td><a href="#">{{ thread.title }}</a></td><td>{{ thread.pub_date }}</td></tr>
+    {% endfor %}
+</table>
+
+{% include 'footer.html' %}

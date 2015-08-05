@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from news.models import Thread
 
 
 def index(request):
@@ -49,3 +50,10 @@ def signup_submit(request):
 def user_logout(request):
     logout(request)
     return redirect("index")
+
+
+def newest_list(request):
+    context = {
+        "threads": Thread.objects.order_by('-pub_date')[:20]
+    }
+    return render(request, 'newest_list.html', context)

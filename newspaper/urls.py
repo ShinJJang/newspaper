@@ -12,7 +12,8 @@ urlpatterns = patterns('',
     url(r'^signup/$',               'news.views.signup', name='signup'),
     url(r'^signup/submit/$',        'news.views.signup_submit', name='signup_submit'),
     url(r'^logout/$',               'news.views.user_logout', name='user_logout'),
-    # newest
+    url(r'^newest/$',               'news.views.newest_list', name='newest_list')
+
     # submit thread
     # read thread
     # edit profile

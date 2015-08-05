@@ -5,3 +5,16 @@
     <title>News!</title>
 </head>
 <body>
+
+<div>
+    {% if user.is_authenticated %}
+        <span>{{ user.username }}</span>
+        <a href="{% url 'user_logout' %}">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'signup' %}">Signup</a>
+    {% endif %}
+
+    <a href="{% url 'index' %}">Main</a>
+    <a href="{% url 'newest_list' %}">New</a>
+</div>
