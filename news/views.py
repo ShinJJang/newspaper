@@ -3,6 +3,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from news.models import Thread
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -58,8 +59,47 @@ def newest_list(request):
     }
     return render(request, 'newest_list.html', context)
 
+
 def read_thread(request, thread_id):
     context = {
         "thread": get_object_or_404(Thread, id=thread_id)
     }
     return render(request, 'thread.html', context)
+
+
+@login_required
+def new_thread(request):
+    try:
+        if request.session["error"]:
+            error_message = request.session["error"]
+            del request.session["error"]
+    except KeyError:
+        error_message = None
+
+    context = {
+        "error_message": error_message
+    }
+    return render(request, 'new_thread.html', context)
+
+
+@login_required
+def submit_thread(request):
+    try:
+        title = request.POST["title"].strip()
+        url = request.POST["url"].strip()
+        content = request.POST["content"].strip()
+
+        if not title and url:
+            pass
+            #title = urllib2.get()
+        elif title:
+            thread = Thread(title=title, url=url, content=content, writer_id=request.user.id)
+            thread.save()
+            return redirect("newest_list")
+
+    except KeyError:
+        request.session["error"] = "올바른 요청이 아닙니다"
+        return redirect("signup")
+    else:
+        request.session["error"] = "입력한 정보가 올바르지 않습니다"
+        return redirect("new_thread")
