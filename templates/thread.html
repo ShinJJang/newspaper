@@ -16,6 +16,9 @@
 
         <td>
             <h2><a href="{{ thread.url }}">{{ thread.title }}</a></h2>
+            <span>Score {{ thread.get_score }}</span>
+        </td>
+        <td>
             <span>{{ thread.pub_date }}</span>
         </td>
     </tr>

@@ -41,7 +41,8 @@ def index(request):
 
     context = {
         "threads": threads,
-        "pages": paginator.page_range
+        "pages": paginator.page_range,
+        "sort": sort_method.name
     }
     return render(request, "index.html", context)
 
