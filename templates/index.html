@@ -16,8 +16,8 @@
         <td class="vert-align">
             <h4 id="vote_count_{{ thread.id }}">{{ thread.get_vote_count }}</h4>
         </td>
-        <td><a href="{% url 'read_thread' thread.id %}">{{ thread.title }}</a>
-            <br>
+        <td>
+            <h4><a href="{% url 'read_thread' thread.id %}">{{ thread.title }}</a></h4>
             <ol class="breadcrumb">
                 <li><span>{{ thread.writer.username }}</span></li>
                 <li><span>Score {{ thread.get_score }}</span></li>
