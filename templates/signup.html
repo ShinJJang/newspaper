@@ -1,22 +1,33 @@
 {% include 'header.html' %}
 <h1>Create Account</h1>
 {% include 'error.html' %}
-<div>
+<div class="col-sm-6">
     <form method="post" action="{% url 'signup_submit' %}">
         {% csrf_token %}
-        <label for="username">username</label>
-        <input type="text" id="username" name="username">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username">
+        </div>
 
-        <label for="password">password</label>
-        <input type="password" id="password" name="password">
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
 
-        <label for="confirm_password">confirm password</label>
-        <input type="password" id="confirm_password" name="confirm_password">
+        <div class="form-group">
+            <label for="confirm_password">Confirm password</label>
+            <input type="password" class="form-control" id="confirm_password" name="confirm_password">
+        </div>
 
-        <label for="email">email</label>
-        <input type="email" id="email" name="email">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email">
+        </div>
 
-        <input type="submit" value="Submit">
+        <div class="form-group">
+            <input type="submit" class="form-control" value="Submit">
+        </div>
+        <a href="{% url 'index' %}">To main</a>
     </form>
 </div>
 
