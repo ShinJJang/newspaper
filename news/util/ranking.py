@@ -1,5 +1,5 @@
 """
-How Reddit ranking algorithms work
+How Reddit ranking algorithms to work
 http://amix.dk/blog/post/19588
 """
 from datetime import datetime, timedelta

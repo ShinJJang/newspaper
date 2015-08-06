@@ -14,6 +14,10 @@ class Thread(models.Model):
         return self.title
 
     def get_vote_count(self):
+        """This function is intended to return count of voted on thread.
+
+        :return: The sum of vote, upvote - devote
+        """
         vote_count = self.vote_set.filter(is_up=True).count() - self.vote_set.filter(is_up=False).count()
         if vote_count >= 0:
             return "+ " + str(vote_count)
@@ -21,6 +25,11 @@ class Thread(models.Model):
             return "- " + str(abs(vote_count))
 
     def get_score(self):
+        """ This function is intended to return score calculated by hot ranking algorithm from reddit.
+        Check out URL containing detail of hot ranking algorithm in news.util.ranking.py
+
+        :return: The score calculated by hot ranking algorithm
+        """
         upvote_count = self.vote_set.filter(is_up=True).count()
         devote_count = self.vote_set.filter(is_up=False).count()
         return hot(upvote_count, devote_count, self.pub_date.replace(tzinfo=None))
