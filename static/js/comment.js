@@ -47,3 +47,29 @@ function apply_style_by_depth() {
     });
 }
 
+$("#comment-form").submit(function () {
+    var form = $(this).serializeArray();
+    var data = {};
+    form.forEach(function (item) {
+        data[item.name] = item.value;
+    });
+    data = JSON.stringify(data);
+    console.log(data);
+    var formURL = $(this).attr("action");
+    $.ajax({
+        url : formURL,
+        contentType: "application/json",
+        type: "POST",
+        dataType: "json",
+        data : data,
+        success:function(data, textStatus, jqXHR)
+        {
+            $("#comment-form input[name='content']").val("");
+        },
+        error: function(jqXHR, textStatus, errorThrown)
+        {
+            //if fails
+        }
+    });
+    return false;
+});

@@ -1,5 +1,6 @@
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from tastypie import fields
+from tastypie.authorization import Authorization
 from django.contrib.auth.models import User
 from news.models import Comment, Thread
 import json
@@ -25,11 +26,12 @@ class ThreadResource(ModelResource):
 
 class CommentResource(ModelResource):
     thread = fields.ForeignKey(ThreadResource, 'thread')
-    writer = fields.ForeignKey(UserResource, 'writer', full=True)
+    writer = fields.ForeignKey(UserResource, 'writer', full=True, readonly=True)
     parent_comment = fields.ForeignKey('news.api.CommentResource', 'parent_comment', null=True)
 
     class Meta:
         queryset = Comment.objects.all()
+        authorization = Authorization()
         include_resource_uri = False
         ordering = ['-pub_date']
         filtering = {
@@ -37,6 +39,9 @@ class CommentResource(ModelResource):
             'comment': ALL_WITH_RELATIONS,
             'parent_comment': ALL_WITH_RELATIONS,
         }
+
+    def obj_create(self, bundle, **kwargs):
+        return super(CommentResource, self).obj_create(bundle, writer=bundle.request.user, **kwargs)
 
     def dehydrate(self, bundle):
         child_comments = Comment.objects.filter(parent_comment_id=bundle.data["id"]).order_by("-pub_date")
