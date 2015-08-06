@@ -6,13 +6,16 @@ function append_comment(target, data, is_prepend, depth) {
                         "  <small><a href='/api/v1/comment/" + comment.id + "/' class='reply'>댓글달기</a></small></h4>" +
                         "<h5>" + comment.content + "</h5></div></li>";
 
+        var next_target;
         if (is_prepend) {
-            target = target.prepend(dom_data);
+//            next_target = target.prepend(dom_data);
+            next_target = $(dom_data).prependTo(target);
         } else {
-            target = target.append(dom_data);
+//            next_target = target.append(dom_data);
+            next_target = $(dom_data).appendTo(target);
         }
         if (comment.childs.length > 0) {
-            append_comment(target, comment.childs, false, ++depth);
+            append_comment(next_target, comment.childs, false, depth+1);
         }
      });
 }
