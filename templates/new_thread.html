@@ -1,22 +1,28 @@
 {% include 'header.html' %}
 <h2>Submit</h2>
 {% include 'error.html' %}
-<div>
+<div class="col-sm-6">
     <form method="post" action="{% url 'submit_thread' %}">
         {% csrf_token %}
-        <label for="title">Title</label>
-        <input type="text" id="title" name="title">
+        <div class="alert alert-info" role="alert">URL만 입력하면, 해당 Title을 글제목으로 합니다.</div>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title">
+        </div>
+        <h4>Or</h4>
+        <div class="form-group">
+            <label for="url">URL</label>
+            <input type="url" class="form-control" id="url" name="url">
+        </div>
 
-        <span>Or</span>
-        <label for="url">URL</label>
-        <input type="url" id="url" name="url">
+        <div class="form-group">
+            <label for="content">Content</label>
+            <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+        </div>
 
-        <br/>
-        <label for="content">Content</label>
-        <input type="text" id="content" name="content">
-        <input type="submit" value="Submit">
-
-        <br/>
+        <div class="form-group">
+            <input type="submit" class="form-control" value="Submit">
+        </div>
         <a href="{% url 'index' %}">To main</a>
     </form>
 </div>
