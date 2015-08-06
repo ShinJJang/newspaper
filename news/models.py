@@ -29,7 +29,7 @@ class Thread(models.Model):
 class Vote(models.Model):
     thread = models.ForeignKey(Thread)
     user = models.ForeignKey(User)
-    is_up = models.BooleanField("추천 또는 비추천")
+    is_up = models.BooleanField("추천 여부", default=True)
 
     def __str__(self):
         result = self.user.username + " vote to thread id " + str(self.thread.id)
@@ -37,3 +37,14 @@ class Vote(models.Model):
             return result + " with +1"
         else:
             return result + " with -1"
+
+
+class Comment(models.Model):
+    thread = models.ForeignKey(Thread)
+    writer = models.ForeignKey(User)
+    parent_comment = models.ForeignKey("self", null=True, blank=True)
+    content = models.TextField("내용")
+    pub_date = models.DateTimeField("작성 일자", auto_now_add=True)
+
+    def __str__(self):
+        return self.writer.username + ": " + self.content
