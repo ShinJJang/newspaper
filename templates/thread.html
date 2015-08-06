@@ -1,6 +1,9 @@
 {% include 'header.html' %}
-<table>
-    <tr><td>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+    <table class="thread">
+        <tr><td>
             <div>
                 <a href="/thread/{{ thread.id }}/vote?is_up=1" class="vote">
                     <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
@@ -11,22 +14,22 @@
         </td>
 
         <td>
-            <span id="vote_count_{{ thread.id }}">{{ thread.get_vote_count }}</span>
+            <h4 id="vote_count_{{ thread.id }}">{{ thread.get_vote_count }}</h4>
         </td>
 
         <td>
             <h2><a href="{{ thread.url }}">{{ thread.title }}</a></h2>
-            <span>Score {{ thread.get_score }}</span>
-        </td>
-        <td>
-            <span class="time_presentation">{{ thread.pub_date | date }}</span>
-        </td>
-    </tr>
-
-    <tr><td>
-        <div>{{ thread.content }}</div>
-    </td></tr>
-</table>
+            <ol class="breadcrumb">
+                <li><span class="time_presentation">{{ thread.pub_date | date }}</span></li>
+                <li><span>Score {{ thread.get_score }}</span></li>
+            </ol>
+        </td></tr>
+    </table>
+    </div>
+    <div class="panel-body">
+        {{ thread.content }}
+    </div>
+</div>
 
 <ul class="comment_wrapper list-group"></ul>
 <script>
