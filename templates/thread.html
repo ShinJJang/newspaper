@@ -27,4 +27,13 @@
         <div>{{ thread.content }}</div>
     </td></tr>
 </table>
+
+<div id="comment_wrapper">
+
+</div>
+<script>
+    var thread_id = {{ thread.id }};
+    var poll_url = "/api/v1/comment/?format=json&thread__id="+thread_id+ "&parent_comment__isnull=true";
+</script>
+
 {% include 'footer.html' %}
