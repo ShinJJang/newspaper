@@ -18,6 +18,11 @@
         vote($(this));
         return false;
     });
+
+    $(function () {
+        var sort = "{{ sort }}";
+        $("li."+sort).addClass("active");
+    });
 </script>
 </body>
 </html>
