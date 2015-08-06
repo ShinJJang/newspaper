@@ -90,28 +90,6 @@ def user_logout(request):
     return redirect("index")
 
 
-def newest_list(request):
-    try:
-        page = request.GET["page"].strip()
-    except KeyError:
-        page = 1
-    thread_list = Thread.objects.order_by('-pub_date')
-    paginator = Paginator(thread_list, 30)
-
-    try:
-        threads = paginator.page(page)
-    except PageNotAnInteger:
-        threads = paginator.page(1)
-    except EmptyPage:
-        threads = paginator.page(paginator.num_pages)
-
-    context = {
-        "threads": threads,
-        "pages": paginator.page_range
-    }
-    return render(request, 'newest_list.html', context)
-
-
 def read_thread(request, thread_id):
     context = {
         "thread": get_object_or_404(Thread, id=thread_id)
@@ -150,7 +128,7 @@ def submit_thread(request):
 
         thread = Thread(title=title, url=url, content=content, writer_id=request.user.id)
         thread.save()
-        return redirect("newest_list")
+        return redirect("/?sort=date&page=1")
 
     except KeyError:
         request.session["error"] = "올바른 요청이 아닙니다"
