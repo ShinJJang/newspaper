@@ -1,0 +1,25 @@
+<div class="container-fluid">
+    <div>
+        <h1><a href="{% url 'index' %}">Python News</a></h1>
+    </div>
+    <ul class="nav navbar-nav nav-tabs">
+      <li role="presentation" class="sort"><a href="?sort=score&page=1">Score</a></li>
+      <li role="presentation" class="comment"><a href="/?sort=comment&page=1">Comment</a></li>
+      <li role="presentation" class="date"><a href="/?sort=date&page=1">Date</a></li>
+      <li role="presentation" class="title"><a href="/?sort=title&page=1">Title</a></li>
+      <li role="presentation"><a href="{% url 'new_thread' %}">Submit</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+            <li role="presentation"><a href="#">{{ user.username }}</a></li>
+            <li role="presentation"><a href="{% url 'user_logout' %}">Logout</a></li>
+        {% else %}
+            <li role="presentation"><a href="{% url 'login' %}">Login</a></li>
+            <li role="presentation"><a href="{% url 'signup' %}">Signup</a></li>
+        {% endif %}
+    </ul>
+</div>
+
+
+
+
