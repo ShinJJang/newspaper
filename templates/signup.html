@@ -1,31 +1,41 @@
 {% include 'header.html' %}
 <h1>Create Account</h1>
 {% include 'error.html' %}
-<div class="col-sm-6">
+<div>
     <form method="post" action="{% url 'signup_submit' %}">
         {% csrf_token %}
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username">
+        <div class="row">
+            <div class="form-group col-sm-7 col-md-6 col-lg-6">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username">
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password">
+        <div class="row">
+            <div class="form-group col-sm-7 col-md-6 col-lg-6">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="confirm_password">Confirm password</label>
-            <input type="password" class="form-control" id="confirm_password" name="confirm_password">
+        <div class="row">
+            <div class="form-group col-sm-7 col-md-6 col-lg-6">
+                <label for="confirm_password">Confirm password</label>
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password">
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email">
+        <div class="row">
+            <div class="form-group col-sm-7 col-md-6 col-lg-6">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email">
+            </div>
         </div>
 
-        <div class="form-group">
-            <input type="submit" class="form-control" value="Submit">
+        <div class="row">
+            <div class="form-group col-sm-2 col-md-1 col-lg-1">
+                <input type="submit" class="form-control" value="Submit">
+            </div>
         </div>
         <a href="{% url 'index' %}">To main</a>
     </form>

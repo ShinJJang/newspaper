@@ -3,16 +3,30 @@
 <div>
     <form method="post" action="{% url 'django.contrib.auth.views.login' %}" role="login">
         {% csrf_token %}
-        <label for="username">username</label>
-        <input type="text" id="username" name="username">
-        <label for="password">password</label>
-        <input type="password" id="password" name="password">
+        <div class="row">
+            <div class="form-group col-sm-7 col-md-6 col-lg-6">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-sm-7 col-md-6 col-lg-6">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+        </div>
     {% if next %}
         <input type="hidden" name="next" value="{{ next }}">
     {% else %}
         <input type="hidden" name="next" value="/">
     {% endif %}
-        <input type="submit" value="Login">
+
+        <div class="row">
+            <div class="form-group col-sm-2 col-md-1 col-lg-1">
+                <input type="submit" class="form-control" value="Login">
+            </div>
+        </div>
     </form>
 </div>
 
