@@ -1,7 +1,8 @@
 function append_comment(target, data, is_prepend, depth) {
      $.each(data, function(i, comment) {
         var dom_data = "<li class='list-group-item'><div class='depth-" + depth + "'>" +
-                        "<h4>" + comment.writer.username + "  <small>" + comment.pub_date + "</small></h4>" +
+                        "<h4>" + comment.writer.username +
+                        "  <small>" + moment(comment.pub_date).startOf('hour').fromNow() + "</small></h4>" +
                         "<h5>" + comment.content + "</h5></div></li>";
 
         if (is_prepend) {

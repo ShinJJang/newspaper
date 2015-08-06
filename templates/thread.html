@@ -19,7 +19,7 @@
             <span>Score {{ thread.get_score }}</span>
         </td>
         <td>
-            <span>{{ thread.pub_date }}</span>
+            <span class="time_presentation">{{ thread.pub_date | date }}</span>
         </td>
     </tr>
 

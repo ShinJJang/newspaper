@@ -1,4 +1,11 @@
 </div>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="screen">
+<script src="{% static 'js/moment-with-locales.min.js' %}"></script>
+<script type="text/javascript">
+    moment.locale('ko');
+</script>
+<script type="text/javascript" src="{% static 'js/time.js' %}"></script>
 <script type="text/javascript">
     function vote(node) {
         var thread_id = node.attr("href").split('\/')[2];

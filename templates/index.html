@@ -19,7 +19,7 @@
         <td><a href="{% url 'read_thread' thread.id %}">{{ thread.title }}</a>
             <br>
             <small>Score {{ thread.get_score }}</small></td>
-        <td>{{ thread.pub_date }}</td>
+        <td class="time_presentation">{{ thread.pub_date | date }}</td>
     </tr>
     {% endfor %}
 </table>
