@@ -138,6 +138,7 @@ def submit_thread(request):
 
 def vote(request, thread_id):
     try:
+        error_message = "올바른 요청이 아닙니다"
         is_up = int(request.GET["is_up"].strip())
         if is_up == 1 or is_up == 0:
             if not request.user.is_authenticated():
@@ -155,10 +156,8 @@ def vote(request, thread_id):
                         vote.is_up = is_up
                         vote.save()
 
-                    json_data = '{"count":"%s"}' % thread.get_vote_count()
-                    return HttpResponse(json_data, content_type="application/json; charset=utf-8")
-        else:
-            error_message = "올바른 요청이 아닙니다"
+                json_data = '{"count":"%s"}' % thread.get_vote_count()
+                return HttpResponse(json_data, content_type="application/json; charset=utf-8")
     except KeyError:
         json_data = '{"error_message":"%s"}' % "올바른 요청이 아닙니다"
         return HttpResponseBadRequest(json_data, content_type="application/json; charset=utf-8")
