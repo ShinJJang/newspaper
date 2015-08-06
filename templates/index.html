@@ -6,15 +6,15 @@
 <table class="table">
     {% for thread in threads %}
     <tr>
-        <td><div>
+        <td class="vert-align"><div>
             <a href="/thread/{{ thread.id }}/vote?is_up=1" class="vote">
                 <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
             <br>
             <a href="/thread/{{ thread.id }}/vote?is_up=0" class="vote">
                 <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
         </div></td>
-        <td>
-            <span id="vote_count_{{ thread.id }}">{{ thread.get_vote_count }}</span>
+        <td class="vert-align">
+            <h4 id="vote_count_{{ thread.id }}">{{ thread.get_vote_count }}</h4>
         </td>
         <td><a href="{% url 'read_thread' thread.id %}">{{ thread.title }}</a>
             <br>
@@ -22,6 +22,7 @@
                 <li><span>{{ thread.writer.username }}</span></li>
                 <li><span>Score {{ thread.get_score }}</span></li>
                 <li><span class="time_presentation">{{ thread.pub_date | date }}</span></li>
+                <li><span>댓글 {{ thread.comment_set.count }}</span></li>
             </ol>
         </td>
     </tr>
