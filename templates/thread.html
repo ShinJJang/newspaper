@@ -38,7 +38,7 @@
     var thread_id = {{ thread.id }};
 </script>
 
-<div class="comment-form-wrapper">
+<div id="comment-form-wrapper">
     <form id="comment-form" method="post" action="/api/v1/comment/">
         <input type="hidden" name="thread" value="/api/v1/thread/{{ thread.id }}/">
 

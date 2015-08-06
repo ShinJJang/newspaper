@@ -2,7 +2,8 @@ function append_comment(target, data, is_prepend, depth) {
      $.each(data, function(i, comment) {
         var dom_data = "<li class='list-group-item'><div class='depth-" + depth + "'>" +
                         "<h4>" + comment.writer.username +
-                        "  <small>" + moment(comment.pub_date).startOf('hour').fromNow() + "</small></h4>" +
+                        "  <small>" + moment(comment.pub_date).startOf('hour').fromNow() + "</small>" +
+                        "  <small><a href='/api/v1/comment/" + comment.id + "/' class='reply'>댓글달기</a></small></h4>" +
                         "<h5>" + comment.content + "</h5></div></li>";
 
         if (is_prepend) {
@@ -30,6 +31,7 @@ function comment_poll() {
             $('.comment_wrapper').html("");
             append_comment($('.comment_wrapper'), data.objects, true, 0);
             apply_style_by_depth();
+            move_reply_form();
         }, dataType: "json"});
 }
 
@@ -44,6 +46,21 @@ function apply_style_by_depth() {
         var depth_num = item.className.split('-')[1];
         $(item).css('margin-left',  default_margin*depth_num + 'px');
         $(item).css('border-left',  "5px solid " +colors[depth_num % 5]);
+    });
+}
+
+function move_reply_form() {
+    $(".reply").on("click", function () {
+//        $("#comment-form-wrapper").appendTo($(this).parent().parent().parent().parent());
+        if ($("#comment-form input[name='parent-comment']").length > 0) {
+            console.log("if");
+            $("#comment-form input[name='parent-comment']").val($(this).attr("href"));
+        } else {
+            console.log("else");
+            console.log($("#comment-form"));
+            $("#comment-form").append("<input type='hidden' name='parent_comment' value='" + $(this).attr("href") + "'>");
+        }
+        return false;
     });
 }
 
@@ -64,6 +81,7 @@ $("#comment-form").submit(function () {
         data : data,
         success:function(data, textStatus, jqXHR)
         {
+            comment_poll();
             $("#comment-form input[name='content']").val("");
         },
         error: function(jqXHR, textStatus, errorThrown)
