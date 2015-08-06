@@ -23,8 +23,7 @@ urlpatterns = patterns('',
     url(r'^thread/submit/$',        'news.views.submit_thread', name='submit_thread'),
     url(r'^thread/(?P<thread_id>\d+)/$', 'news.views.read_thread', name='read_thread'),
     url(r'^thread/(?P<thread_id>\d+)/vote/$', 'news.views.vote', name='vote'),
-    url(r'^thread/(?P<thread_id>\d+)/comment/$', 'news.views.get_comments', name='get_comments'),
-    (r'^api/', include(v1_api.urls)),
+    url(r'^api/', include(v1_api.urls)),
     # edit profile
     # submit comment
     # about

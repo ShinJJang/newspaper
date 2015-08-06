@@ -161,20 +161,3 @@ def vote(request, thread_id):
     else:
         json_data = '{"count":"%s"}' % "올바른 요청이 아닙니다"
         return HttpResponseBadRequest(json_data, content_type="application/json; charset=utf-8")
-
-
-def get_comments(request, thread_id):
-    thread = get_object_or_404(Thread, id=thread_id)
-    comments = thread.comment_set.all()
-    comment_tree = []
-    for comment in comments:
-        comment_childs = comment.comment_set.all().values()
-        comment_item = {
-            # "comment": comment.values(),
-            "comment_childs": comment_childs
-        }
-        comment_tree.append(comment_item)
-
-    json_data = json.dumps(comment_tree)
-    data = [{'name': item.name, 'year': item.year} for item in queryset]
-    return HttpResponse(json_data, content_type="application/json; charset=utf-8")
