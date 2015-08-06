@@ -20,6 +20,7 @@
         <td>
             <h2><a href="{{ thread.url }}">{{ thread.title }}</a></h2>
             <ol class="breadcrumb">
+                <li><span>{{ thread.writer.username }}</span></li>
                 <li><span class="time_presentation">{{ thread.pub_date | date }}</span></li>
                 <li><span>Score {{ thread.get_score }}</span></li>
             </ol>
