@@ -11,4 +11,6 @@ def get_content(url):
 def parse_title(url):
     soup = BeautifulSoup(get_content(url), "html.parser")
     title = soup.title.string
+    if not title:
+        title = soup.find("meta", property="og:title")['content']  # The open graph protocol http://ogp.me/
     return title
