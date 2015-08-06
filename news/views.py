@@ -1,15 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
-from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
+from django.db.models import Count
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Count
-from news.models import Thread, Vote, Comment
+
+from news.models import Thread, Vote
 from news.util.parser import parse_title
 from news.util.common import SortMethods
-import json
 
 
 def index(request):
@@ -23,8 +23,8 @@ def index(request):
 
     if sort_method == SortMethods.date:
         thread_list = Thread.objects.order_by("-pub_date")
-    #elif sort_method == SortMethods.comment:
-    #    thread_list = Thread.objects.annotate(num_comments=Count('comments')).order_by("num_comments")
+    elif sort_method == SortMethods.comment:
+        thread_list = Thread.objects.annotate(num_comments=Count('comment')).order_by("-num_comments")
     elif sort_method == SortMethods.title:
         thread_list = Thread.objects.order_by("title")
     else:
