@@ -1,0 +1,3 @@
+div[class^="depth-"], div[class*="depth-"] {
+    padding-left: 10px;
+}

@@ -31,6 +31,7 @@ class CommentResource(ModelResource):
     class Meta:
         queryset = Comment.objects.all()
         include_resource_uri = False
+        ordering = ['-pub_date']
         filtering = {
             'thread': ALL_WITH_RELATIONS,
             'comment': ALL_WITH_RELATIONS,
@@ -38,10 +39,8 @@ class CommentResource(ModelResource):
         }
 
     def dehydrate(self, bundle):
-        child_comments = Comment.objects.filter(parent_comment_id=bundle.data["id"])
+        child_comments = Comment.objects.filter(parent_comment_id=bundle.data["id"]).order_by("-pub_date")
         if child_comments.count() > 0:
-            print(child_comments)
-            print()
             objects = []
             for q in child_comments:
                 data = self.build_bundle(obj=q, request=bundle.request)
@@ -50,4 +49,6 @@ class CommentResource(ModelResource):
             desired_format = self.determine_format(bundle.request)
             json_data = self.serialize(bundle.request, objects, desired_format)
             bundle.data["childs"] = json.loads(json_data)
+        else:
+            bundle.data["childs"] = []
         return bundle

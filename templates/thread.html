@@ -27,4 +27,11 @@
         <div>{{ thread.content }}</div>
     </td></tr>
 </table>
+
+<ul class="comment_wrapper list-group"></ul>
+<script>
+    var thread_id = {{ thread.id }};
+</script>
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/comment.js"></script>
 {% include 'footer.html' %}
