@@ -27,6 +27,12 @@ Equivalent to,
 $ python3 manage.py runserver        # run server
 ```
 
+# Test
+Now, this project have one test about title parsing from URL.
+```
+$ python3 manage.py test
+```
+
 # Used module
 * Django==1.7
 * beautifulsoup4==4.4.0

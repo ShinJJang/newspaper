@@ -78,6 +78,10 @@ $("#comment-form").submit(function () {
         data[item.name] = item.value;
     });
     data = JSON.stringify(data);
+    if (valid_test(data)) {
+        alert("정상적인 값을 입력해주세요");
+        return false;
+    }
     var formURL = $(this).attr("action");
     $.ajax({
         url : formURL,
