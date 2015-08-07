@@ -2,7 +2,7 @@
 <h2>Submit</h2>
 {% include 'error.html' %}
 <div class="col-sm-6">
-    <form method="post" action="{% url 'submit_thread' %}">
+    <form id="thread_form" method="post" action="{% url 'submit_thread' %}">
         {% csrf_token %}
         <div class="alert alert-info" role="alert">URL만 입력하면, 해당 Title을 글제목으로 합니다.</div>
         <div class="form-group">
