@@ -1,5 +1,10 @@
 function append_comment(target, data, is_prepend, depth) {
      $.each(data, function(i, comment) {
+        if (valid_test(comment.writer.username+comment.content)) {
+            console.log("비정상 데이터라 표시되지 않은 댓글");
+            console.log(comment);
+            return true;
+        }
         var dom_data = "<li class='list-group-item'><div class='depth-" + depth + "'>" +
                         "<h4>" + comment.writer.username +
                         "  <small>" + moment(comment.pub_date).startOf('hour').fromNow() + "</small>" +
