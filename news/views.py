@@ -13,6 +13,13 @@ from news.util.common import SortMethods
 
 
 def index(request):
+    """This view return index page. In index page, there is thread list.
+    And thread list can be sorted by score, number of comment, date, title using paging.
+    GET parameters are 'sort' and 'page'. 'sort' is sorting methods. 'page' is number of page.
+
+    :param request: Django request object
+    :return: Thread list page
+    """
     try:
         sort = request.GET["sort"].strip()
         sort_method = SortMethods[sort]
@@ -49,6 +56,11 @@ def index(request):
 
 
 def signup(request):
+    """This view return signup page.
+
+    :param request: Django request object
+    :return: Signup page
+    """
     try:
         if request.session["error"]:
             error_message = request.session["error"]
@@ -63,6 +75,13 @@ def signup(request):
 
 
 def signup_submit(request):
+    """This view handle signup request, then if success, redirect to index page.
+    If fail, redirect to signup page included error message in session.
+    Key of error message on session is error.
+
+    :param request: Django request object
+    :return: If success, redirect to index. If not, redirect to signup.
+    """
     try:
         username = request.POST["username"].strip()
         password = request.POST["password"].strip()
@@ -115,6 +134,13 @@ def new_thread(request):
 
 @login_required
 def submit_thread(request):
+    """This view is intended to handle submission of thread.
+    If submission don't include title and include url,
+    then get title through function 'parse_title'.
+
+    :param request: Django request object
+    :return: If success, redirect to thread list sorted by date to check submitted thread. If not, error massage
+    """
     try:
         title = request.POST["title"].strip()
         url = request.POST["url"].strip()
@@ -137,6 +163,13 @@ def submit_thread(request):
 
 
 def vote(request, thread_id):
+    """This view is intended to use ajax and handle vote.
+    Checking GET parameter 'is_up' decide upvote or devote.
+
+    :param request: Django request object
+    :param thread_id: Voted thread id
+    :return: If success, sum of upvote and devote. if not, error message
+    """
     try:
         error_message = "올바른 요청이 아닙니다"
         is_up = int(request.GET["is_up"].strip())

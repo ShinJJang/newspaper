@@ -44,6 +44,12 @@ class CommentResource(ModelResource):
         return super(CommentResource, self).obj_create(bundle, writer=bundle.request.user, **kwargs)
 
     def dehydrate(self, bundle):
+        """This functions is overriding to support threaded comments.
+         This called each comment, recursively, comments tree is made.
+
+        :param bundle: Tastypie wrapper
+        :return: Comments included children
+        """
         child_comments = Comment.objects.filter(parent_comment_id=bundle.data["id"]).order_by("-pub_date")
         if child_comments.count() > 0:
             objects = []
