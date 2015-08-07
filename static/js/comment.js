@@ -53,18 +53,22 @@ function apply_style_by_depth() {
 }
 
 function move_reply_form() {
+    // Reply to comment, add form input about parent comment
     $(".reply").on("click", function () {
 //        $("#comment-form-wrapper").appendTo($(this).parent().parent().parent().parent());
-        if ($("#comment-form input[name='parent-comment']").length > 0) {
-            console.log("if");
-            $("#comment-form input[name='parent-comment']").val($(this).attr("href"));
+        var comment_dom = $("input[name='parent_comment']");
+        if (comment_dom.length > 0) {
+            comment_dom.val($(this).attr("href"));
         } else {
-            console.log("else");
-            console.log($("#comment-form"));
             $("#comment-form").append("<input type='hidden' name='parent_comment' value='" + $(this).attr("href") + "'>");
         }
         return false;
     });
+
+    // Reply to thread, remove form input about parent comment
+    $(".reply_on_thread").on("click", function () {
+        $("input[name='parent_comment']").remove();
+    })
 }
 
 $("#comment-form").submit(function () {
@@ -74,7 +78,6 @@ $("#comment-form").submit(function () {
         data[item.name] = item.value;
     });
     data = JSON.stringify(data);
-    console.log(data);
     var formURL = $(this).attr("action");
     $.ajax({
         url : formURL,

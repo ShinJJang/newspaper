@@ -42,11 +42,15 @@
     <form id="comment-form" method="post" action="/api/v1/comment/">
         <input type="hidden" name="thread" value="/api/v1/thread/{{ thread.id }}/">
 
+        <div class="form-group col-sm-3 col-md-2 col-lg-2">
+            <input type="button" class="form-control reply_on_thread" value="글에 댓글달기">
+        </div>
+
         <div class="form-group col-sm-6 col-md-7 col-lg-7">
             <input type="text" placeholder="댓글을 입력하세요" class="form-control" name="content">
         </div>
 
-        <div class="form-group col-sm-2 col-md-1 col-lg-1">
+        <div class="form-group col-sm-3 col-md-2 col-lg-2">
             <input type="submit" class="form-control" value="Submit">
         </div>
     </form>
