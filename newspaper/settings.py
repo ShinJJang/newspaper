@@ -76,7 +76,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-DATE_FORMAT = 'c'
+DATE_FORMAT = 'c'  # equivalent with Y-m-d H:i:s
 
 
 # Static files (CSS, JavaScript, Images)
