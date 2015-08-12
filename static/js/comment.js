@@ -27,9 +27,9 @@ function append_comment(target, data, is_prepend, depth) {
 
 function wrap_comment_poll() {
     comment_poll();
-    setInterval(function () {
-        comment_poll();
-    }, 5000);
+//    setInterval(function () {
+//        comment_poll();
+//    }, 5000);
 }
 
 function comment_poll() {
@@ -40,7 +40,7 @@ function comment_poll() {
             append_comment($('.comment_wrapper'), data.objects, true, 0);
             apply_style_by_depth();
             move_reply_form();
-        }, dataType: "json"});
+        }, complete: setTimeout(comment_poll, 5000), dataType: "json"});
 }
 
 $( document ).ready(function() {
