@@ -25,10 +25,6 @@ function append_comment(target, data, is_prepend, depth) {
      });
 }
 
-function wrap_comment_poll() {
-    comment_poll();
-}
-
 function comment_poll() {
     $.ajax({
         url: "/api/v1/comment/?format=json&thread__id=" + thread_id + "&parent_comment__isnull=true",
@@ -41,7 +37,7 @@ function comment_poll() {
 }
 
 $( document ).ready(function() {
-    wrap_comment_poll();
+    comment_poll();
 });
 
 function apply_style_by_depth() {
