@@ -25,13 +25,6 @@ function append_comment(target, data, is_prepend, depth) {
      });
 }
 
-function wrap_comment_poll() {
-    comment_poll();
-    setInterval(function () {
-        comment_poll();
-    }, 5000);
-}
-
 function comment_poll() {
     $.ajax({
         url: "/api/v1/comment/?format=json&thread__id=" + thread_id + "&parent_comment__isnull=true",
@@ -40,11 +33,11 @@ function comment_poll() {
             append_comment($('.comment_wrapper'), data.objects, true, 0);
             apply_style_by_depth();
             move_reply_form();
-        }, dataType: "json"});
+        }, complete: setTimeout(comment_poll, 5000), dataType: "json"});
 }
 
 $( document ).ready(function() {
-    wrap_comment_poll();
+    comment_poll();
 });
 
 function apply_style_by_depth() {
