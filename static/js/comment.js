@@ -27,9 +27,6 @@ function append_comment(target, data, is_prepend, depth) {
 
 function wrap_comment_poll() {
     comment_poll();
-//    setInterval(function () {
-//        comment_poll();
-//    }, 5000);
 }
 
 function comment_poll() {

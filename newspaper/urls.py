@@ -25,6 +25,5 @@ urlpatterns = patterns('',
     url(r'^thread/(?P<thread_id>\d+)/vote/$', 'news.views.vote', name='vote'),
     url(r'^api/', include(v1_api.urls)),
     # edit profile
-    # submit comment
     # about
 )
