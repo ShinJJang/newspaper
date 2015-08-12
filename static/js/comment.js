@@ -33,7 +33,11 @@ function comment_poll() {
             append_comment($('.comment_wrapper'), data.objects, true, 0);
             apply_style_by_depth();
             move_reply_form();
-        }, complete: setTimeout(comment_poll, 5000), dataType: "json"});
+        },
+        complete: setTimeout(comment_poll, 5000),
+        dataType: "json",
+        timeout: 2000
+    });
 }
 
 $( document ).ready(function() {
