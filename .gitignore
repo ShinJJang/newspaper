@@ -64,3 +64,6 @@ db.sqlite3
 
 # migrations
 migrations/
+
+# virtual envirenment
+venv/
