@@ -7,7 +7,7 @@ function append_comment(target, data, is_prepend, depth) {
         }
         var dom_data = "<li class='list-group-item'><div class='depth-" + depth + "'>" +
                         "<h4>" + comment.writer.username +
-                        "  <small>" + moment(comment.pub_date).startOf('hour').fromNow() + "</small>" +
+                        "  <small>" + moment(comment.pub_date, moment.ISO_8601).locale('ko').fromNow() + "</small>" +
                         "  <small><a href='/api/v1/comment/" + comment.id + "/' class='reply'>댓글달기</a></small></h4>" +
                         "<h5>" + comment.content + "</h5></div></li>";
 
