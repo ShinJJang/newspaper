@@ -65,8 +65,5 @@ db.sqlite3
 # migrations
 migrations/
 
-# heroku
-staticfiles
-
 # virtual envirenment
 venv/
