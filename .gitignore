@@ -67,3 +67,6 @@ migrations/
 
 # heroku
 staticfiles
+
+# virtual envirenment
+venv/

@@ -10,11 +10,12 @@
 <script type="text/javascript" src="{% static 'js/vote.js' %}"></script>
 <script type="text/javascript">
 
+	{% if sort %}
     /*** main nav tap activate ***/
     $(function () {
-        var sort = "{{ sort }}";
-        $("li."+sort).addClass("active");
+        $("li.{{ sort }}").addClass("active");
     });
+    {% endif %}
 </script>
 </body>
 </html>
