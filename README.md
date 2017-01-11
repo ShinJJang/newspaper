@@ -1,5 +1,5 @@
 # Newspaper
-Newspaper project is similar project with Hacker News. This appliction is built on django 1.7 and Python 3.4.
+Newspaper project is similar project with Hacker News. This appliction is built on django 1.10 and Python 3.5.x
 
 # Installation
 On termial, type below:
@@ -34,7 +34,10 @@ $ python3 manage.py test
 ```
 
 # Used module
-* Django==1.7
-* beautifulsoup4==4.4.0
-* django-tastypie==0.12.2
+* beautifulsoup4==4.5.3
+* Django==1.10.5
+* django-tastypie==0.13.3
+* python-dateutil==2.6.0
+* python-mimeparse==1.6.0
+* six==1.10.0
 
