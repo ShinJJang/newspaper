@@ -62,9 +62,6 @@ target/
 # Sqlite
 db.sqlite3
 
-# migrations
-migrations/
-
 # heroku
 staticfiles
 
