@@ -4,7 +4,7 @@ from news.util.ranking import hot
 
 
 class Thread(models.Model):
-    title = models.CharField("제목", max_length=30)
+    title = models.CharField("제목", max_length=255)
     url = models.CharField("URL", max_length=255)
     content = models.TextField("내용")
     writer = models.ForeignKey(User)
